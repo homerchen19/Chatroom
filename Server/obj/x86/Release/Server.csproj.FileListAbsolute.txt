@@ -1,0 +1,11 @@
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\bin\Release\Server.exe.config
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\bin\Release\Server.exe
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\bin\Release\Server.pdb
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\bin\Release\Common.dll
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\bin\Release\Common.pdb
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Release\Server.csprojResolveAssemblyReference.cache
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Release\Server.Form1.resources
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Release\Server.Properties.Resources.resources
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Release\Server.csproj.GenerateResource.Cache
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Release\Server.exe
+C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Release\Server.pdb
