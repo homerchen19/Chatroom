@@ -63,14 +63,13 @@ namespace Server
             this.cboMaxCount.Enabled = false;
         }
 
-        // 永久監聽線程
-        bool watchFlag = true;
-
         //配對
         Dictionary<string, string> user_dic = new Dictionary<string, string>();
         int user_count = 0;
         string user;
 
+        // 永久監聽線程
+        bool watchFlag = true;
         private void WatchConnection()
         {
             try
@@ -157,8 +156,9 @@ namespace Server
                     switch (mod.MsgType)
                     {
                         case (int)Common.PubClass.MsgType.Client2Client:
-                            this.txtServerState.AppendTxt(string.Format("【{0}】 對 【{1}】 說：{2}", mod.FromUser, mod.ToUser, mod.Content));
                             mod.ToUser = user_dic[mod.FromUser];
+                            this.txtServerState.AppendTxt(string.Format("【{0}】 對 【{1}】 說：{2}", mod.FromUser, mod.ToUser, mod.Content));
+                            
                             foreach (var item in dictClients)
                             {
                                 if (item.Key == mod.ToUser)
@@ -173,6 +173,7 @@ namespace Server
                             txtServerState.AppendTxt("傳送完成, 檔案大小：" + mod.ContentBytes.Length.ToString() + "kb");
                             break;
                         case (int)Common.PubClass.MsgType.ShineScreen: //叮咚
+                            mod.ToUser = user_dic[mod.FromUser];
                             txtServerState.AppendTxt(string.Format("【{0}】 對 【{1}】傳送了一個叮咚", mod.FromUser, mod.ToUser));
                             Server2ClientMsg(mod.ToUser, mod.Content, false, PubClass.MsgType.ShineScreen);
                             break;
