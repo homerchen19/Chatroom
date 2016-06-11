@@ -21,7 +21,8 @@ namespace Common
             CancelJY = 9,
             Client2ClientFile = 10,
             ShineScreen = 11,
-            Other = 12
+            Other = 12,
+            Check = 13
         }
     }
 

@@ -48,6 +48,8 @@ namespace Client {
                 thrReceived.Start();
 
                 this.groupBox3.Enabled = true;
+                this.txtReceived.AppendTxt("等待配對中...");
+                this.txtMessage.Enabled = false;
                 this.userName_textBox.Enabled = false;
             }
                 
@@ -126,6 +128,11 @@ namespace Client {
                         //管理員 to 用戶
                         case (int)Common.PubClass.MsgType.Server2ClientMsg:
                             this.txtReceived.AppendTxt(string.Format("管理員：{0}", mod.Content));
+                            break;
+                        //配對
+                        case (int)Common.PubClass.MsgType.Check:
+                            txtReceived.AppendTxt(mod.Content);
+                            txtMessage.Enabled = true;
                             break;
                     }
                 }
@@ -228,5 +235,6 @@ namespace Client {
                 System.Threading.Thread.Sleep(10);
             }
         }
+        
     }
 }
