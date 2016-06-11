@@ -86,7 +86,6 @@ namespace Server
                         Server2ClientMsg(clientName, "目前連線數量已超過最大限制，請稍後重試...", false);
                         socketConn.Close();
                     }
-                    SendFrientToAll();
 
                     user_count += 1;
                     if (user_count == 2)
@@ -94,8 +93,11 @@ namespace Server
                         user_dic.Add(user, clientName);
                         user_dic.Add(clientName, user);
                         user_count = 0;
+                        Server2ClientMsg(user, "配對成功", false, Common.PubClass.MsgType.Check);
+                        Server2ClientMsg(clientName, "配對成功", false, Common.PubClass.MsgType.Check);
+
                     }
-                    else
+                    else if (user_count == 1)
                     {
                         user = clientName;
                     }
@@ -111,34 +113,6 @@ namespace Server
             {
 
             }
-        }
-
-        private void SendFrientToAll()
-        {
-            if (dictClients.Count < 1)
-            {
-                return;
-            }
-            string clients = "";
-            foreach (KeyValuePair<string, Socket> item in dictClients)
-            {
-                clients += "^" + item.Key; //^IP:port
-                //Debug.Print(clients);
-            }
-            clients = clients.Substring(1);
-
-            //處理訊息，建立每個訊息的詳細資訊
-            MessageMod mod = new MessageMod();
-            mod.MsgType = (int)Common.PubClass.MsgType.RadioClients;
-            mod.FromUser = socketServer.LocalEndPoint.ToString();
-            mod.ToUser = "all";
-            mod.Content = clients;
-            mod.ContentBytes = new byte[1];
-            foreach (var item in dictClients)
-            {
-                item.Value.Send(mod.ToBytes()); //Value = socket
-            }
-
         }
 
         // 監聽接收訊息的線程
@@ -301,7 +275,6 @@ namespace Server
             dictClients.Remove(currentClient); //從dictionary中移除
             this.lstClient.Items.Remove(currentClient);
             txtLog.AppendTxt(currentClient + "被管理員強制下線了");
-            SendFrientToAll();
             Server2AllClientMsg(currentClient + "被管理員強制下線", PubClass.MsgType.Server2ClientMsg);
         }
         #endregion
@@ -351,5 +324,6 @@ namespace Server
         {
             this.cboMaxCount.SelectedIndex = 0;
         }
+
     }
 }

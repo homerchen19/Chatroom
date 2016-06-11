@@ -11,3 +11,7 @@ C:\Users\Homer\Desktop\Chatroom\Common\bin\Debug\Common.dll
 C:\Users\Homer\Desktop\Chatroom\Common\bin\Debug\Common.pdb
 C:\Users\Homer\Desktop\Chatroom\Common\obj\Debug\Common.dll
 C:\Users\Homer\Desktop\Chatroom\Common\obj\Debug\Common.pdb
+C:\Users\abba123\Desktop\Chatroom\Common\bin\Debug\Common.dll
+C:\Users\abba123\Desktop\Chatroom\Common\bin\Debug\Common.pdb
+C:\Users\abba123\Desktop\Chatroom\Common\obj\Debug\Common.dll
+C:\Users\abba123\Desktop\Chatroom\Common\obj\Debug\Common.pdb
