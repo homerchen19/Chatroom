@@ -21,6 +21,7 @@ namespace Client {
             TextBox.CheckForIllegalCrossThreadCalls = false;
 
             this.groupBox3.Enabled = false;
+            this.userName_textBox.Focus();
         }
 
         Socket socketClient = null;
@@ -175,16 +176,21 @@ namespace Client {
 
             //將檔案打包成mod
             MessageMod mod = new MessageMod();
-            using (FileStream fs = new FileStream(fileName, FileMode.Open)) {
-                byte [] byts = new byte [1024 * 1024 * 2];
-                fs.Read(byts, 0, (int)fs.Length);
-                mod.ContentBytes = byts;
+            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read)) {
+                //byte [] byts = new byte [1024 * 1024 * 2];
+                //fs.Read(byts, 0, (int)fs.Length);
+                //mod.ContentBytes = byts;
+                mod.ContentBytes = File.ReadAllBytes(fileName);
+                fs.Close();
             }
             mod.MsgType = (int)Common.PubClass.MsgType.Client2ClientFile;
             mod.FromUser = localName;
+            mod.FromUser_Name = userName;
             mod.ToUser = "";
             mod.Content = fileName;
             socketClient.Send(mod.ToBytes()); //傳送出去
+            
+            txtFilePath.Text = "";
         }
 
         //叮咚
@@ -192,6 +198,7 @@ namespace Client {
             MessageMod mod = new MessageMod();
             mod.MsgType = (int)Common.PubClass.MsgType.ShineScreen;
             mod.FromUser = localName;
+            mod.FromUser_Name = userName;
             mod.ToUser = "";
             mod.Content = "叮咚！有人在家嗎～～";
             socketClient.Send(mod.ToBytes());

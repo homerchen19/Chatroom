@@ -159,7 +159,6 @@ namespace Server
                     {
                         case (int)Common.PubClass.MsgType.Client2Client:
                             this.txtServerState.AppendTxt(string.Format("【{0}】 對 【{1}】 說：{2}", mod.FromUser, mod.ToUser, mod.Content));
-                            
                             foreach (var item in dictClients)
                             {
                                 if (item.Key == mod.ToUser)
