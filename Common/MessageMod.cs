@@ -16,18 +16,20 @@ namespace Common
             try
             {
                 string[] strs = str.Split('|');
-                if (strs.Length < 6)
+                if (strs.Length < 7)
                 {
                     this.MsgType = Convert.ToInt32(strs[0]);
                     this.FromUser = Convert.ToString(strs[1]);
-                    this.ToUser = Convert.ToString(strs[2]);
-                    this.Content = Convert.ToString(strs[3].Trim("\0".ToCharArray()));
-                    this.ContentBytes = Encoding.UTF8.GetBytes(strs[4].Trim("\0".ToCharArray()));
+                    this.FromUser_Name = Convert.ToString(strs[2]);
+                    this.ToUser = Convert.ToString(strs[3]);
+                    this.Content = Convert.ToString(strs[4].Trim("\0".ToCharArray()));
+                    this.ContentBytes = Encoding.UTF8.GetBytes(strs[5].Trim("\0".ToCharArray()));
                 }
                 else
                 {
                     this.MsgType = 0;
                     this.FromUser = "";
+                    this.FromUser_Name = "";
                     this.ToUser = "";
                     this.Content = "";
                     this.ContentBytes = new byte[1];
@@ -38,6 +40,7 @@ namespace Common
             {
                 this.MsgType = 0;
                 this.FromUser = "";
+                this.FromUser_Name = "";
                 this.ToUser = "";
                 this.Content = "";
                 this.ContentBytes = new byte[1];
@@ -58,6 +61,9 @@ namespace Common
 
         //傳送者
         public string FromUser { get; set; }
+
+        //傳送者
+        public string FromUser_Name { get; set; }
 
         // 接收者
         public string ToUser { get; set; }
@@ -80,7 +86,7 @@ namespace Common
 
         public override string ToString()
         {
-            return string.Format("{0}|{1}|{2}|{3}|{4}", MsgType, FromUser, ToUser, Content, Encoding.UTF8.GetString(ContentBytes));
+            return string.Format("{0}|{1}|{2}|{3}|{4}|{5}", MsgType, FromUser, FromUser_Name, ToUser, Content, Encoding.UTF8.GetString(ContentBytes));
         }
 
         public byte[] ToBytes()

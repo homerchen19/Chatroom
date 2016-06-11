@@ -21,12 +21,10 @@ namespace Client {
             TextBox.CheckForIllegalCrossThreadCalls = false;
 
             this.groupBox3.Enabled = false;
-            this.groupBox4.Enabled = false;
-            this.lstFriends.Enabled = false;
         }
 
         Socket socketClient = null;
-        string localName;
+        string localName, userName = "預設暱稱";
 
         //連線
         private void btnConnection_Click ( object sender, EventArgs e ) {
@@ -34,25 +32,22 @@ namespace Client {
             ConnectionServer connectionserver = new ConnectionServer("127.0.0.1", "5555"); //server IP and port
 
             socketClient = connectionserver.Connection2Server(); //連線至server
-            this.lblUid.Text = localName = socketClient.LocalEndPoint.ToString();
+            localName = socketClient.LocalEndPoint.ToString();
             this.btnConnection.Enabled = false;
             Thread thrReceived = new Thread(ReceiveMsg); //建立線程來監聽訊息
             thrReceived.IsBackground = true;
             thrReceived.SetApartmentState(ApartmentState.STA);
             thrReceived.Start();
-
-            Debug.Print("1");
+            
             this.groupBox3.Enabled = true;
-            this.groupBox4.Enabled = true;
-            this.lstFriends.Enabled = true;
+            this.userName_textBox.Enabled = false;
+            userName = userName_textBox.Text;
         }
 
         // 永久監聽線程
         bool receiveFlag = true;
         private void ReceiveMsg () {
-            Debug.Print("2");
             try {
-                Debug.Print("3");
                 while (receiveFlag) {
                     
                     byte [] bytes = new byte [1024 * 1024 * 2];
@@ -63,17 +58,7 @@ namespace Client {
                     switch (mod.MsgType) {
                         //一般傳訊息
                         case (int)Common.PubClass.MsgType.Client2Client:
-                            this.txtReceived.AppendTxt(string.Format("{0}：{1}", mod.FromUser, mod.Content));
-                            Debug.Print("4");
-                            break;
-                        case (int)Common.PubClass.MsgType.RadioClients:
-                            this.lstFriends.Items.Clear();
-                            string [] strs = mod.Content.Split('^');
-                            foreach (var item in strs) {
-                                if (!this.lstFriends.Items.Contains(item) && item != socketClient.LocalEndPoint.ToString()) {
-                                    this.lstFriends.Items.Add(item);
-                                }
-                            }
+                            this.txtReceived.AppendTxt(string.Format("{0}：{1}", mod.FromUser_Name, mod.Content));
                             break;
                         // 踢人
                         case (int)Common.PubClass.MsgType.TR:
@@ -124,7 +109,7 @@ namespace Client {
                         case (int)Common.PubClass.MsgType.ShineScreen:
                             this.txtReceived.SelectionFont = new Font("微軟正黑體", 14, FontStyle.Bold); 
                             this.txtReceived.SelectionColor = Color.Red;
-                            this.txtReceived.AppendTxt(string.Format("{0}：叮咚！有人在家嗎～～", mod.FromUser));
+                            this.txtReceived.AppendTxt("叮咚！有人在家嗎～～");
                             this.txtReceived.SelectionFont = new Font("微軟正黑體", 12, FontStyle.Regular);
                             this.txtReceived.SelectionColor = Color.Black;
                             ShakeWindow();
@@ -134,7 +119,6 @@ namespace Client {
                             this.txtReceived.AppendTxt(string.Format("管理員：{0}", mod.Content));
                             break;
                     }
-                    Debug.Print("5");
                 }
             } catch (Exception ex)
             {
@@ -153,10 +137,11 @@ namespace Client {
                 MessageMod mod = new MessageMod();
                 mod.MsgType = (int)Common.PubClass.MsgType.Client2Client;
                 mod.FromUser = localName;
+                mod.FromUser_Name = userName;
                 mod.ToUser = "";
                 mod.Content = this.txtMessage.Text;
                 socketClient.Send(mod.ToBytes());
-                txtReceived.AppendTxt(string.Format("{0}：{1}", mod.FromUser, mod.Content));
+                txtReceived.AppendTxt(string.Format("{0}：{1}", mod.FromUser_Name, mod.Content));
                 this.txtMessage.Text = "";
             } else {
                 MessageBox.Show("伺服器停止回應");

@@ -68,7 +68,7 @@ namespace Server
         int user_count = 0;
         string user;
 
-        // 永久監聽線程
+        // 永久監聽連線線程
         bool watchFlag = true;
         private void WatchConnection()
         {
@@ -77,7 +77,7 @@ namespace Server
                 while (watchFlag)
                 {
                     Socket socketConn = socketServer.Accept(); //建立新連接的socket
-                    string clientName = socketConn.RemoteEndPoint.ToString(); //用戶名稱
+                    string clientName = socketConn.RemoteEndPoint.ToString(); //用戶名稱(IP:port)
                     this.lstClient.Items.Add(clientName); //加到用戶列表
                     dictClients.Add(clientName, socketConn); //儲存一個用戶，一個socket
                     if (dictClients.Count > maxCount)
@@ -153,10 +153,11 @@ namespace Server
 
                     string receiveMsg = Encoding.UTF8.GetString(bytes);
                     MessageMod mod = new MessageMod(receiveMsg);
+                    mod.ToUser = user_dic[mod.FromUser];
+
                     switch (mod.MsgType)
                     {
                         case (int)Common.PubClass.MsgType.Client2Client:
-                            mod.ToUser = user_dic[mod.FromUser];
                             this.txtServerState.AppendTxt(string.Format("【{0}】 對 【{1}】 說：{2}", mod.FromUser, mod.ToUser, mod.Content));
                             
                             foreach (var item in dictClients)
@@ -173,7 +174,6 @@ namespace Server
                             txtServerState.AppendTxt("傳送完成, 檔案大小：" + mod.ContentBytes.Length.ToString() + "kb");
                             break;
                         case (int)Common.PubClass.MsgType.ShineScreen: //叮咚
-                            mod.ToUser = user_dic[mod.FromUser];
                             txtServerState.AppendTxt(string.Format("【{0}】 對 【{1}】傳送了一個叮咚", mod.FromUser, mod.ToUser));
                             Server2ClientMsg(mod.ToUser, mod.Content, false, PubClass.MsgType.ShineScreen);
                             break;
