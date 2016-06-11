@@ -21,3 +21,14 @@ C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Debug\Server.cspro
 C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Debug\Server.Form1.resources
 C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Debug\Server.Properties.Resources.resources
 C:\Users\Homer\Desktop\Chatroom-project\Socket\Server\obj\x86\Debug\Server.csproj.GenerateResource.Cache
+C:\Users\abba123\Desktop\Chatroom\Server\bin\Debug\Server.exe.config
+C:\Users\abba123\Desktop\Chatroom\Server\bin\Debug\Server.exe
+C:\Users\abba123\Desktop\Chatroom\Server\bin\Debug\Server.pdb
+C:\Users\abba123\Desktop\Chatroom\Server\bin\Debug\Common.dll
+C:\Users\abba123\Desktop\Chatroom\Server\bin\Debug\Common.pdb
+C:\Users\abba123\Desktop\Chatroom\Server\obj\x86\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\abba123\Desktop\Chatroom\Server\obj\x86\Debug\Server.Form1.resources
+C:\Users\abba123\Desktop\Chatroom\Server\obj\x86\Debug\Server.Properties.Resources.resources
+C:\Users\abba123\Desktop\Chatroom\Server\obj\x86\Debug\Server.csproj.GenerateResource.Cache
+C:\Users\abba123\Desktop\Chatroom\Server\obj\x86\Debug\Server.exe
+C:\Users\abba123\Desktop\Chatroom\Server\obj\x86\Debug\Server.pdb

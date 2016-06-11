@@ -30,8 +30,8 @@ namespace Client {
 
         //連線
         private void btnConnection_Click ( object sender, EventArgs e ) {
-            ConnectionServer connectionserver = new ConnectionServer("13.75.120.16", "5555"); //server IP and port
-            //ConnectionServer connectionserver = new ConnectionServer("127.0.0.1", "5555"); //server IP and port
+            //ConnectionServer connectionserver = new ConnectionServer("13.75.120.16", "5555"); //server IP and port
+            ConnectionServer connectionserver = new ConnectionServer("127.0.0.1", "5555"); //server IP and port
 
             socketClient = connectionserver.Connection2Server(); //連線至server
             this.lblUid.Text = localName = socketClient.LocalEndPoint.ToString();
@@ -147,15 +147,13 @@ namespace Client {
 
         // 傳送訊息
         private void btnSendMsg_Click ( object sender, EventArgs e ) {
-            string SelectFriend = GetSelectClient();
-            if (SelectFriend.Length == 0) return;
             if (txtMessage.Text.Length == 0) return;
 
             if (receiveFlag) {
                 MessageMod mod = new MessageMod();
                 mod.MsgType = (int)Common.PubClass.MsgType.Client2Client;
                 mod.FromUser = localName;
-                mod.ToUser = SelectFriend;
+                mod.ToUser = "";
                 mod.Content = this.txtMessage.Text;
                 socketClient.Send(mod.ToBytes());
                 txtReceived.AppendTxt(string.Format("{0}：{1}", mod.FromUser, mod.Content));
@@ -165,19 +163,8 @@ namespace Client {
             }
         }
 
-        private string GetSelectClient () {
-            if (lstFriends.SelectedItem != null) {
-                return lstFriends.SelectedItem.ToString();
-            } else {
-                MessageBox.Show("請選擇一個用戶");
-                return "";
-            }
-        }
-
         //傳送檔案
         private void btnSendFile_Click ( object sender, EventArgs e ) {
-            string SelectFriend = GetSelectClient();
-            if (SelectFriend.Length == 0) return;
             string fileName = txtFilePath.Text;
             if (string.IsNullOrEmpty(fileName)) {
                 MessageBox.Show("請選擇檔案");
@@ -193,7 +180,7 @@ namespace Client {
             }
             mod.MsgType = (int)Common.PubClass.MsgType.Client2ClientFile;
             mod.FromUser = localName;
-            mod.ToUser = SelectFriend;
+            mod.ToUser = "";
             mod.Content = fileName;
             socketClient.Send(mod.ToBytes()); //傳送出去
         }
@@ -207,12 +194,10 @@ namespace Client {
 
         //叮咚
         private void btnShake_Click ( object sender, EventArgs e ) {
-            string SelectFriend = GetSelectClient();
-            if (SelectFriend.Length == 0) return;
             MessageMod mod = new MessageMod();
             mod.MsgType = (int)Common.PubClass.MsgType.ShineScreen;
             mod.FromUser = localName;
-            mod.ToUser = SelectFriend;
+            mod.ToUser = "";
             mod.Content = "叮咚！有人在家嗎～～";
             socketClient.Send(mod.ToBytes());
         }

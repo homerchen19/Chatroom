@@ -22,16 +22,16 @@
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.btnSendMsg = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtReceived = new System.Windows.Forms.RichTextBox();
             this.btnShake = new System.Windows.Forms.Button();
             this.btnSendFile = new System.Windows.Forms.Button();
             this.btnChooseFile = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtFilePath = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lstFriends = new System.Windows.Forms.ListBox();
             this.sfgDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.lstFriends = new System.Windows.Forms.ListBox();
-            this.txtReceived = new System.Windows.Forms.RichTextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
@@ -104,6 +104,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "訊息框";
             // 
+            // txtReceived
+            // 
+            this.txtReceived.Font = new System.Drawing.Font("微軟正黑體", 12F);
+            this.txtReceived.Location = new System.Drawing.Point(15, 22);
+            this.txtReceived.Name = "txtReceived";
+            this.txtReceived.Size = new System.Drawing.Size(730, 229);
+            this.txtReceived.TabIndex = 41;
+            this.txtReceived.Text = "";
+            // 
             // btnShake
             // 
             this.btnShake.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -164,14 +173,7 @@
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "客户端列表";
-            // 
-            // sfgDialog
-            // 
-            this.sfgDialog.Filter = "所有文件|*.*";
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.Filter = "所有文件|*.*";
+            this.groupBox4.Visible = false;
             // 
             // lstFriends
             // 
@@ -182,15 +184,15 @@
             this.lstFriends.Name = "lstFriends";
             this.lstFriends.Size = new System.Drawing.Size(176, 364);
             this.lstFriends.TabIndex = 0;
+            this.lstFriends.Visible = false;
             // 
-            // txtReceived
+            // sfgDialog
             // 
-            this.txtReceived.Font = new System.Drawing.Font("微軟正黑體", 12F);
-            this.txtReceived.Location = new System.Drawing.Point(15, 22);
-            this.txtReceived.Name = "txtReceived";
-            this.txtReceived.Size = new System.Drawing.Size(730, 229);
-            this.txtReceived.TabIndex = 41;
-            this.txtReceived.Text = "";
+            this.sfgDialog.Filter = "所有文件|*.*";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.Filter = "所有文件|*.*";
             // 
             // Form1
             // 

@@ -65,6 +65,12 @@ namespace Server
 
         // 永久監聽線程
         bool watchFlag = true;
+
+        //配對
+        Dictionary<string, string> user_dic = new Dictionary<string, string>();
+        int user_count = 0;
+        string user;
+
         private void WatchConnection()
         {
             try
@@ -82,6 +88,19 @@ namespace Server
                         socketConn.Close();
                     }
                     SendFrientToAll();
+
+                    user_count += 1;
+                    if (user_count == 2)
+                    {
+                        user_dic.Add(user, clientName);
+                        user_dic.Add(clientName, user);
+                        user_count = 0;
+                    }
+                    else
+                    {
+                        user = clientName;
+                    }
+
                     this.txtLog.AppendTxt("用戶連線成功：" + clientName);
                     this.txtNowCount.Text = (int.Parse(txtNowCount.Text.ToString()) + 1).ToString();
                     thrReadRec = new Thread(() => { ReceiveMsg(socketConn); }); //開啟新的線程監聽訊息
@@ -139,6 +158,7 @@ namespace Server
                     {
                         case (int)Common.PubClass.MsgType.Client2Client:
                             this.txtServerState.AppendTxt(string.Format("【{0}】 對 【{1}】 說：{2}", mod.FromUser, mod.ToUser, mod.Content));
+                            mod.ToUser = user_dic[mod.FromUser];
                             foreach (var item in dictClients)
                             {
                                 if (item.Key == mod.ToUser)
