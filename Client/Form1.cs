@@ -24,24 +24,32 @@ namespace Client {
         }
 
         Socket socketClient = null;
-        string localName, userName = "預設暱稱";
+        string localName, userName;
 
         //連線
         private void btnConnection_Click ( object sender, EventArgs e ) {
-            //ConnectionServer connectionserver = new ConnectionServer("13.75.120.16", "5555"); //server IP and port
-            ConnectionServer connectionserver = new ConnectionServer("127.0.0.1", "5555"); //server IP and port
+            if(userName_textBox.Text == "")
+            {
+                MessageBox.Show("需要輸入暱稱才能連線");
+            }
+            else
+            {
+                userName = userName_textBox.Text;
+                //ConnectionServer connectionserver = new ConnectionServer("13.75.120.16", "5555"); //server IP and port
+                ConnectionServer connectionserver = new ConnectionServer("127.0.0.1", "5555"); //server IP and port
 
-            socketClient = connectionserver.Connection2Server(); //連線至server
-            localName = socketClient.LocalEndPoint.ToString();
-            this.btnConnection.Enabled = false;
-            Thread thrReceived = new Thread(ReceiveMsg); //建立線程來監聽訊息
-            thrReceived.IsBackground = true;
-            thrReceived.SetApartmentState(ApartmentState.STA);
-            thrReceived.Start();
-            
-            this.groupBox3.Enabled = true;
-            this.userName_textBox.Enabled = false;
-            userName = userName_textBox.Text;
+                socketClient = connectionserver.Connection2Server(); //連線至server
+                localName = socketClient.LocalEndPoint.ToString();
+                this.btnConnection.Enabled = false;
+                Thread thrReceived = new Thread(ReceiveMsg); //建立線程來監聽訊息
+                thrReceived.IsBackground = true;
+                thrReceived.SetApartmentState(ApartmentState.STA);
+                thrReceived.Start();
+
+                this.groupBox3.Enabled = true;
+                this.userName_textBox.Enabled = false;
+            }
+                
         }
 
         // 永久監聽線程
@@ -142,14 +150,23 @@ namespace Client {
                 mod.Content = this.txtMessage.Text;
                 socketClient.Send(mod.ToBytes());
                 txtReceived.AppendTxt(string.Format("{0}：{1}", mod.FromUser_Name, mod.Content));
-                this.txtMessage.Text = "";
-            } else {
+                this.txtMessage.Clear();
+                this.txtMessage.Focus();
+                SendKeys.Send("{BACKSPACE}");
+            }
+            else {
                 MessageBox.Show("伺服器停止回應");
             }
         }
 
         //傳送檔案
         private void btnSendFile_Click ( object sender, EventArgs e ) {
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                this.txtFilePath.Text = openFileDialog.FileName;
+                this.txtFilePath.Enabled = false;
+            }
+
             string fileName = txtFilePath.Text;
             if (string.IsNullOrEmpty(fileName)) {
                 MessageBox.Show("請選擇檔案");
@@ -170,13 +187,6 @@ namespace Client {
             socketClient.Send(mod.ToBytes()); //傳送出去
         }
 
-        private void btnChooseFile_Click ( object sender, EventArgs e ) {
-            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                this.txtFilePath.Text = openFileDialog.FileName;
-                this.txtFilePath.Enabled = false;
-            }
-        }
-
         //叮咚
         private void btnShake_Click ( object sender, EventArgs e ) {
             MessageMod mod = new MessageMod();
@@ -185,6 +195,17 @@ namespace Client {
             mod.ToUser = "";
             mod.Content = "叮咚！有人在家嗎～～";
             socketClient.Send(mod.ToBytes());
+        }
+
+        private void txtMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ( !e.Shift && e.KeyCode == Keys.Enter) //catch enter keypress
+            {
+                if (string.IsNullOrEmpty(txtFilePath.Text))
+                    btnSendMsg.PerformClick();
+                else
+                    btnSendFile.PerformClick();
+            }
         }
 
         //晃動螢幕

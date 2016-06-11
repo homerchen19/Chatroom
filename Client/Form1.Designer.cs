@@ -24,7 +24,6 @@
             this.txtFilePath = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtMessage = new System.Windows.Forms.TextBox();
-            this.btnChooseFile = new System.Windows.Forms.Button();
             this.btnSendMsg = new System.Windows.Forms.Button();
             this.btnSendFile = new System.Windows.Forms.Button();
             this.btnShake = new System.Windows.Forms.Button();
@@ -70,7 +69,6 @@
             this.userName_textBox.Name = "userName_textBox";
             this.userName_textBox.Size = new System.Drawing.Size(100, 23);
             this.userName_textBox.TabIndex = 11;
-            this.userName_textBox.Text = "請輸入暱稱";
             // 
             // txtFilePath
             // 
@@ -92,38 +90,31 @@
             // 
             // txtMessage
             // 
+            this.txtMessage.AcceptsReturn = true;
             this.txtMessage.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtMessage.Location = new System.Drawing.Point(13, 314);
             this.txtMessage.Multiline = true;
             this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(732, 73);
+            this.txtMessage.Size = new System.Drawing.Size(647, 73);
             this.txtMessage.TabIndex = 7;
-            // 
-            // btnChooseFile
-            // 
-            this.btnChooseFile.Location = new System.Drawing.Point(170, 271);
-            this.btnChooseFile.Name = "btnChooseFile";
-            this.btnChooseFile.Size = new System.Drawing.Size(68, 23);
-            this.btnChooseFile.TabIndex = 34;
-            this.btnChooseFile.Text = "選擇檔案";
-            this.btnChooseFile.UseVisualStyleBackColor = true;
-            this.btnChooseFile.Click += new System.EventHandler(this.btnChooseFile_Click);
+            this.txtMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMessage_KeyDown);
             // 
             // btnSendMsg
             // 
-            this.btnSendMsg.Location = new System.Drawing.Point(663, 393);
+            this.btnSendMsg.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnSendMsg.Location = new System.Drawing.Point(663, 314);
             this.btnSendMsg.Name = "btnSendMsg";
-            this.btnSendMsg.Size = new System.Drawing.Size(82, 27);
+            this.btnSendMsg.Size = new System.Drawing.Size(82, 73);
             this.btnSendMsg.TabIndex = 5;
-            this.btnSendMsg.Text = "傳送訊息";
+            this.btnSendMsg.Text = "傳送";
             this.btnSendMsg.UseVisualStyleBackColor = true;
             this.btnSendMsg.Click += new System.EventHandler(this.btnSendMsg_Click);
             // 
             // btnSendFile
             // 
-            this.btnSendFile.Location = new System.Drawing.Point(578, 393);
+            this.btnSendFile.Location = new System.Drawing.Point(156, 271);
             this.btnSendFile.Name = "btnSendFile";
-            this.btnSendFile.Size = new System.Drawing.Size(82, 27);
+            this.btnSendFile.Size = new System.Drawing.Size(82, 23);
             this.btnSendFile.TabIndex = 36;
             this.btnSendFile.Text = "傳送檔案";
             this.btnSendFile.UseVisualStyleBackColor = true;
@@ -156,7 +147,6 @@
             this.groupBox3.Controls.Add(this.btnShake);
             this.groupBox3.Controls.Add(this.btnSendFile);
             this.groupBox3.Controls.Add(this.btnSendMsg);
-            this.groupBox3.Controls.Add(this.btnChooseFile);
             this.groupBox3.Controls.Add(this.txtMessage);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.txtFilePath);
@@ -172,7 +162,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(772, 490);
+            this.ClientSize = new System.Drawing.Size(772, 458);
             this.Controls.Add(this.userName_textBox);
             this.Controls.Add(this.btnConnection);
             this.Controls.Add(this.lable);
@@ -195,7 +185,6 @@
         private System.Windows.Forms.TextBox txtFilePath;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtMessage;
-        private System.Windows.Forms.Button btnChooseFile;
         private System.Windows.Forms.Button btnSendMsg;
         private System.Windows.Forms.Button btnSendFile;
         private System.Windows.Forms.Button btnShake;
