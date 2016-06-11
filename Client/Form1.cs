@@ -21,7 +21,6 @@ namespace Client {
             TextBox.CheckForIllegalCrossThreadCalls = false;
 
             this.groupBox3.Enabled = false;
-            this.userName_textBox.Focus();
         }
 
         Socket socketClient = null;
@@ -51,6 +50,9 @@ namespace Client {
                 this.txtReceived.AppendTxt("等待配對中...");
                 this.txtMessage.Enabled = false;
                 this.userName_textBox.Enabled = false;
+                this.btnShake.Enabled = false;
+                this.btnSendMsg.Enabled = false;
+                this.btnSendFile.Enabled = false;
             }
                 
         }
@@ -131,8 +133,11 @@ namespace Client {
                             break;
                         //配對
                         case (int)Common.PubClass.MsgType.Check:
-                            txtReceived.AppendTxt(mod.Content);
-                            txtMessage.Enabled = true;
+                            this.txtReceived.AppendTxt(mod.Content);
+                            this.txtMessage.Enabled = true;
+                            this.btnShake.Enabled = true;
+                            this.btnSendMsg.Enabled = true;
+                            this.btnSendFile.Enabled = true;
                             break;
                     }
                 }
@@ -183,7 +188,7 @@ namespace Client {
 
             //將檔案打包成mod
             MessageMod mod = new MessageMod();
-            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read)) {
+            using (FileStream fs = new FileStream(fileName, FileMode.Open)) {
                 //byte [] byts = new byte [1024 * 1024 * 2];
                 //fs.Read(byts, 0, (int)fs.Length);
                 //mod.ContentBytes = byts;
@@ -196,7 +201,6 @@ namespace Client {
             mod.ToUser = "";
             mod.Content = fileName;
             socketClient.Send(mod.ToBytes()); //傳送出去
-            
             txtFilePath.Text = "";
         }
 

@@ -95,7 +95,6 @@ namespace Server
                         user_count = 0;
                         Server2ClientMsg(user, "配對成功", false, Common.PubClass.MsgType.Check);
                         Server2ClientMsg(clientName, "配對成功", false, Common.PubClass.MsgType.Check);
-
                     }
                     else if (user_count == 1)
                     {
@@ -133,6 +132,7 @@ namespace Server
                     {
                         case (int)Common.PubClass.MsgType.Client2Client:
                             this.txtServerState.AppendTxt(string.Format("【{0}】 對 【{1}】 說：{2}", mod.FromUser, mod.ToUser, mod.Content));
+                            
                             foreach (var item in dictClients)
                             {
                                 if (item.Key == mod.ToUser)

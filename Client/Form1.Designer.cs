@@ -73,6 +73,7 @@
             // txtFilePath
             // 
             this.txtFilePath.BackColor = System.Drawing.Color.LavenderBlush;
+            this.txtFilePath.Enabled = false;
             this.txtFilePath.Location = new System.Drawing.Point(318, 271);
             this.txtFilePath.Name = "txtFilePath";
             this.txtFilePath.ReadOnly = true;
