@@ -35,8 +35,8 @@ namespace Client {
             else
             {
                 userName = userName_textBox.Text;
-                //ConnectionServer connectionserver = new ConnectionServer("13.75.120.16", "5555"); //server IP and port
-                ConnectionServer connectionserver = new ConnectionServer("127.0.0.1", "5555"); //server IP and port
+                ConnectionServer connectionserver = new ConnectionServer("13.75.120.16", "5555"); //server IP and port
+                //ConnectionServer connectionserver = new ConnectionServer("127.0.0.1", "5555"); //server IP and port
 
                 socketClient = connectionserver.Connection2Server(); //連線至server
                 localName = socketClient.LocalEndPoint.ToString();
@@ -144,6 +144,7 @@ namespace Client {
             } catch (Exception ex)
             {
                 MessageBox.Show("伺服器連線失敗，3秒後即將關閉視窗..." + ex.Message);
+                receiveFlag = false;
                 System.Timers.Timer timer = new System.Timers.Timer(3000);
                 timer.Enabled = true;
                 timer.Elapsed += ( object sender, System.Timers.ElapsedEventArgs e ) => { this.Close(); };

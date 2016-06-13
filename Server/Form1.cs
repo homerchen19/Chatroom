@@ -25,7 +25,7 @@ namespace Server
 
             InitializeComponent();
         }
-        
+
         //伺服器socket
         Socket socketServer = null;
 
@@ -66,7 +66,7 @@ namespace Server
         //配對
         Dictionary<string, string> user_dic = new Dictionary<string, string>();
         int user_count = 0;
-        string user;
+        string ClientName_2, userPort;
 
         // 永久監聽連線線程
         bool watchFlag = true;
@@ -78,6 +78,7 @@ namespace Server
                 {
                     Socket socketConn = socketServer.Accept(); //建立新連接的socket
                     string clientName = socketConn.RemoteEndPoint.ToString(); //用戶名稱(IP:port)
+                    string clientNamePort = ((IPEndPoint)socketConn.RemoteEndPoint).Port.ToString(); //用戶Port
                     this.lstClient.Items.Add(clientName); //加到用戶列表
                     dictClients.Add(clientName, socketConn); //儲存一個用戶，一個socket
                     if (dictClients.Count > maxCount)
@@ -90,15 +91,16 @@ namespace Server
                     user_count += 1;
                     if (user_count == 2)
                     {
-                        user_dic.Add(user, clientName);
-                        user_dic.Add(clientName, user);
+                        user_dic.Add(userPort, clientName); //port -> IP
+                        user_dic.Add(clientNamePort, ClientName_2); //port -> IP
                         user_count = 0;
-                        Server2ClientMsg(user, "配對成功", false, Common.PubClass.MsgType.Check);
+                        Server2ClientMsg(ClientName_2, "配對成功", false, Common.PubClass.MsgType.Check);
                         Server2ClientMsg(clientName, "配對成功", false, Common.PubClass.MsgType.Check);
                     }
                     else if (user_count == 1)
                     {
-                        user = clientName;
+                        ClientName_2 = clientName;
+                        userPort = clientNamePort;
                     }
 
                     this.txtLog.AppendTxt("用戶連線成功：" + clientName);
@@ -126,13 +128,13 @@ namespace Server
 
                     string receiveMsg = Encoding.UTF8.GetString(bytes);
                     MessageMod mod = new MessageMod(receiveMsg);
-                    mod.ToUser = user_dic[mod.FromUser];
-
+                    string FromUserPort = mod.FromUser.Split(':')[1];
+                    mod.ToUser = user_dic[FromUserPort];
                     switch (mod.MsgType)
                     {
                         case (int)Common.PubClass.MsgType.Client2Client:
                             this.txtServerState.AppendTxt(string.Format("【{0}】 對 【{1}】 說：{2}", mod.FromUser, mod.ToUser, mod.Content));
-                            
+
                             foreach (var item in dictClients)
                             {
                                 if (item.Key == mod.ToUser)
@@ -155,6 +157,7 @@ namespace Server
             }
             catch
             {
+                user_count -= 1;
                 string connName = socketConn.RemoteEndPoint.ToString();
                 this.txtLog.AppendTxt(connName + " 已離線");
                 txtNowCount.Text = (int.Parse(txtNowCount.Text) - 1).ToString();
@@ -246,7 +249,7 @@ namespace Server
         bool pauseFlag = true;
         private void btnPause_Click(object sender, EventArgs e)
         {
-            if(pauseFlag)
+            if (pauseFlag)
             {
                 socketServer.Blocking = true;
                 this.txtStatu.Text = "暫停中...";
@@ -264,10 +267,11 @@ namespace Server
             }
         }
         #endregion
-        
+
         #region 踢人
         private void btnTR_Click(object sender, EventArgs e)
         {
+            user_count -= 1;
             string currentClient = GetSelectClient();
             if (currentClient.Length == 0) return;
             Server2ClientMsg(currentClient, "您被管理員強制下線了", false, PubClass.MsgType.TR);

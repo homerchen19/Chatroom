@@ -9,3 +9,14 @@ C:\Users\Homer\Desktop\Chatroom-project\Socket\Client\bin\Release\Common.dll
 C:\Users\Homer\Desktop\Chatroom-project\Socket\Client\bin\Release\Common.pdb
 C:\Users\Homer\Desktop\Chatroom-project\Socket\Client\obj\x86\Release\Client.exe
 C:\Users\Homer\Desktop\Chatroom-project\Socket\Client\obj\x86\Release\Client.pdb
+C:\Users\Homer\Desktop\Chatroom\Client\bin\Release\Client.exe.config
+C:\Users\Homer\Desktop\Chatroom\Client\obj\x86\Release\Client.exe
+C:\Users\Homer\Desktop\Chatroom\Client\obj\x86\Release\Client.pdb
+C:\Users\Homer\Desktop\Chatroom\Client\obj\x86\Release\Client.csprojResolveAssemblyReference.cache
+C:\Users\Homer\Desktop\Chatroom\Client\obj\x86\Release\Client.Form1.resources
+C:\Users\Homer\Desktop\Chatroom\Client\obj\x86\Release\Client.Properties.Resources.resources
+C:\Users\Homer\Desktop\Chatroom\Client\obj\x86\Release\Client.csproj.GenerateResource.Cache
+C:\Users\Homer\Desktop\Chatroom\Client\bin\Release\Client.exe
+C:\Users\Homer\Desktop\Chatroom\Client\bin\Release\Client.pdb
+C:\Users\Homer\Desktop\Chatroom\Client\bin\Release\Common.dll
+C:\Users\Homer\Desktop\Chatroom\Client\bin\Release\Common.pdb
