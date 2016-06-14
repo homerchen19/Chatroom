@@ -54,7 +54,6 @@ namespace Client {
                 this.btnSendMsg.Enabled = false;
                 this.btnSendFile.Enabled = false;
             }
-                
         }
 
         // 永久監聽線程
@@ -139,6 +138,16 @@ namespace Client {
                             this.btnSendMsg.Enabled = true;
                             this.btnSendFile.Enabled = true;
                             break;
+                        //對方離線
+                        case (int)Common.PubClass.MsgType.Offline:
+                            this.txtReceived.SelectionFont = new Font("微軟正黑體", 12, FontStyle.Bold);
+                            this.txtReceived.AppendTxt(mod.Content);
+                            this.txtReceived.SelectionFont = new Font("微軟正黑體", 12, FontStyle.Regular);
+                            this.txtMessage.Enabled = false;
+                            this.btnShake.Enabled = false;
+                            this.btnSendMsg.Enabled = false;
+                            this.btnSendFile.Enabled = false;
+                            break;
                     }
                 }
             } catch (Exception ex)
@@ -214,6 +223,12 @@ namespace Client {
             mod.ToUser = "";
             mod.Content = "叮咚！有人在家嗎～～";
             socketClient.Send(mod.ToBytes());
+
+            this.txtReceived.SelectionFont = new Font("微軟正黑體", 14, FontStyle.Bold);
+            this.txtReceived.SelectionColor = Color.Red;
+            this.txtReceived.AppendTxt("叮咚！有人在家嗎～～");
+            this.txtReceived.SelectionFont = new Font("微軟正黑體", 12, FontStyle.Regular);
+            this.txtReceived.SelectionColor = Color.Black;
         }
 
         private void txtMessage_KeyDown(object sender, KeyEventArgs e)

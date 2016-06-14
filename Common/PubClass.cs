@@ -22,7 +22,8 @@ namespace Common
             Client2ClientFile = 10,
             ShineScreen = 11,
             Other = 12,
-            Check = 13
+            Check = 13,
+            Offline = 14
         }
     }
 

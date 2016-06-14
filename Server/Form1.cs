@@ -22,7 +22,6 @@ namespace Server
         {
             TextBox.CheckForIllegalCrossThreadCalls = false;
             ComboBox.CheckForIllegalCrossThreadCalls = false;
-
             InitializeComponent();
         }
 
@@ -89,7 +88,7 @@ namespace Server
                     }
 
                     user_count += 1;
-                    if (user_count == 2)
+                    if (user_count == 2) //偶數
                     {
                         user_dic.Add(userPort, clientName); //port -> IP
                         user_dic.Add(clientNamePort, ClientName_2); //port -> IP
@@ -157,11 +156,19 @@ namespace Server
             }
             catch
             {
-                user_count -= 1;
                 string connName = socketConn.RemoteEndPoint.ToString();
+                string connNamePort = ((IPEndPoint)socketConn.RemoteEndPoint).Port.ToString();
                 this.txtLog.AppendTxt(connName + " 已離線");
+
+                if (user_dic.ContainsKey(connNamePort))
+                {
+                    Server2ClientMsg(user_dic[connNamePort], "對方已離線", false, Common.PubClass.MsgType.Offline);
+                    user_dic.Remove(user_dic[connNamePort].Split(':')[1]); //從user_dic中移除
+                    user_dic.Remove(connNamePort);
+                }
+
                 txtNowCount.Text = (int.Parse(txtNowCount.Text) - 1).ToString();
-                dictClients.Remove(connName); //從dictionary中移除socket
+                dictClients.Remove(connName); //從dictClients中移除socket
                 this.lstClient.Items.Remove(connName);
             }
         }
@@ -172,7 +179,6 @@ namespace Server
             string currentClient = GetSelectClient();
             if (currentClient.Length == 0) return;
             Server2ClientMsg(currentClient, this.txtSend.Text, false);
-
         }
 
         // 選擇用戶
@@ -327,6 +333,5 @@ namespace Server
         {
             this.cboMaxCount.SelectedIndex = 0;
         }
-
     }
 }

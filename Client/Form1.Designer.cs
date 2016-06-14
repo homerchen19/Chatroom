@@ -135,9 +135,11 @@
             // 
             // txtReceived
             // 
+            this.txtReceived.BackColor = System.Drawing.Color.White;
             this.txtReceived.Font = new System.Drawing.Font("微軟正黑體", 12F);
             this.txtReceived.Location = new System.Drawing.Point(15, 22);
             this.txtReceived.Name = "txtReceived";
+            this.txtReceived.ReadOnly = true;
             this.txtReceived.Size = new System.Drawing.Size(730, 229);
             this.txtReceived.TabIndex = 41;
             this.txtReceived.Text = "";
@@ -163,6 +165,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(772, 458);
             this.Controls.Add(this.userName_textBox);
             this.Controls.Add(this.btnConnection);
