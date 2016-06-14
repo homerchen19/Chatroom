@@ -321,7 +321,6 @@ namespace Server
                     MessageBox.Show("log保存成功" + saveFileDialog.FileName);
                 }
             }
-
         }
 
         private void btnShankAll_Click(object sender, EventArgs e)
@@ -333,5 +332,6 @@ namespace Server
         {
             this.cboMaxCount.SelectedIndex = 0;
         }
+
     }
 }

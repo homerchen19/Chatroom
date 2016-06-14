@@ -25,6 +25,7 @@ namespace Client {
 
         Socket socketClient = null;
         string localName, userName;
+        bool receiveFlag = true;
 
         //連線
         private void btnConnection_Click ( object sender, EventArgs e ) {
@@ -46,7 +47,9 @@ namespace Client {
                 thrReceived.SetApartmentState(ApartmentState.STA);
                 thrReceived.Start();
 
+                receiveFlag = true; //開始監聽
                 this.groupBox3.Enabled = true;
+                this.txtReceived.Text = "";
                 this.txtReceived.AppendTxt("等待配對中...");
                 this.txtMessage.Enabled = false;
                 this.userName_textBox.Enabled = false;
@@ -57,7 +60,7 @@ namespace Client {
         }
 
         // 永久監聽線程
-        bool receiveFlag = true;
+        
         private void ReceiveMsg () {
             try {
                 while (receiveFlag) {
@@ -147,6 +150,12 @@ namespace Client {
                             this.btnShake.Enabled = false;
                             this.btnSendMsg.Enabled = false;
                             this.btnSendFile.Enabled = false;
+
+                            this.userName_textBox.Enabled = true;
+                            this.btnConnection.Enabled = true;
+                            socketClient.Close();
+                            receiveFlag = false;
+
                             break;
                     }
                 }
