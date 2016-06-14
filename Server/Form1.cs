@@ -124,11 +124,11 @@ namespace Server
                 {
                     byte[] bytes = new byte[1024 * 1024 * 2];
                     socketConn.Receive(bytes); //從已連接的Socket接收資料至接收緩衝區中
-
                     string receiveMsg = Encoding.UTF8.GetString(bytes);
                     MessageMod mod = new MessageMod(receiveMsg);
                     string FromUserPort = mod.FromUser.Split(':')[1];
                     mod.ToUser = user_dic[FromUserPort];
+
                     switch (mod.MsgType)
                     {
                         case (int)Common.PubClass.MsgType.Client2Client:

@@ -208,10 +208,10 @@ namespace Client {
             //將檔案打包成mod
             MessageMod mod = new MessageMod();
             using (FileStream fs = new FileStream(fileName, FileMode.Open)) {
-                //byte [] byts = new byte [1024 * 1024 * 2];
-                //fs.Read(byts, 0, (int)fs.Length);
-                //mod.ContentBytes = byts;
-                mod.ContentBytes = File.ReadAllBytes(fileName);
+                byte[] byts = new byte[fs.Length];
+                fs.Read(byts, 0, (int)byts.Length);
+                mod.ContentBytes = byts;
+                //mod.ContentBytes = File.ReadAllBytes(fileName);
                 fs.Close();
             }
             mod.MsgType = (int)Common.PubClass.MsgType.Client2ClientFile;
@@ -219,7 +219,7 @@ namespace Client {
             mod.FromUser_Name = userName;
             mod.ToUser = "";
             mod.Content = fileName;
-            socketClient.Send(mod.ToBytes()); //傳送出去
+            socketClient.Send(mod.ToBytes(), 0, mod.ToBytes().Length, SocketFlags.None); //傳送出去
             txtFilePath.Text = "";
         }
 

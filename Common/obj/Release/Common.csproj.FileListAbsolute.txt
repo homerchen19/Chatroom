@@ -6,3 +6,4 @@ C:\Users\Homer\Desktop\Chatroom\Common\bin\Release\Common.dll
 C:\Users\Homer\Desktop\Chatroom\Common\bin\Release\Common.pdb
 C:\Users\Homer\Desktop\Chatroom\Common\obj\Release\Common.dll
 C:\Users\Homer\Desktop\Chatroom\Common\obj\Release\Common.pdb
+C:\Users\Homer\Desktop\Chatroom\Common\obj\Release\Common.csprojResolveAssemblyReference.cache
